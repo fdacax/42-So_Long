@@ -14,12 +14,24 @@
 
 int main(void)
 {
-	void	*mlx;
-	void	*mlx_win;
+	void *mlx;
+	void *mlx_win;
 
 	mlx = mlx_init();
+	if (!mlx)
+	{
+		fprintf(stderr, "Error: Failed to initialize MiniLibX\n");
+		return 1;
+	}
+
 	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
 	if (!mlx_win)
-		return 0;
+	{
+		fprintf(stderr, "Error: Failed to create window\n");
+		return 1;
+	}
+
 	mlx_loop(mlx);
+
+	return 0;
 }

@@ -64,6 +64,7 @@ void				ft_bzero(void *s, size_t n);
 size_t				ft_strlen(const char *str);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
+char				*ft_strstr(const char *str, const char *to_find);
 
 typedef struct s_list
 {
@@ -106,6 +107,9 @@ char				*ft_extracted_line(char *ptr);
 char				*ft_remaining(char *ptr);
 char				*ft_strcpy(char *src, char *dest, int flag);
 char				*ft_strjoin_gnl(char *str1, char *str2);
+
+
 int					ft_charcmp(char *str, int c);
+int					ft_strcmp(char *s1, char *s2);
 
 #endif

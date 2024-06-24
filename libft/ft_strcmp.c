@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fdacax-m <fdacax-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/17 15:28:48 by fdacax-m          #+#    #+#             */
-/*   Updated: 2024/06/17 15:28:48 by fdacax-m         ###   ########.fr       */
+/*   Created: 2024/06/24 21:40:00 by fdacax-m          #+#    #+#             */
+/*   Updated: 2024/06/24 21:40:00 by fdacax-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-#define SO_LONG_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include "mlx/mlx.h"
-# include <stdbool.h>
-# include <stdio.h>
-# include <X11/keysym.h>
-# include <X11/Xlib.h>
-#include <fcntl.h>
+int	ft_strcmp(char *s1, char *s2)
+{
+	int i;
 
-#endif
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] && s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}

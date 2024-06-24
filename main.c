@@ -12,26 +12,40 @@
 
 #include "so_long.h"
 
-int main(void)
+bool	check_extension(char *file)
 {
-	void *mlx;
-	void *mlx_win;
+	char	*extension;
 
-	mlx = mlx_init();
-	if (!mlx)
-	{
-		fprintf(stderr, "Error: Failed to initialize MiniLibX\n");
-		return 1;
-	}
+	extension = strrchr(file, '.');
+	if(ft_strcmp(extension, ".ber") == 0)
+		return (true);
+	return (false);
+}
 
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	if (!mlx_win)
-	{
-		fprintf(stderr, "Error: Failed to create window\n");
-		return 1;
-	}
+bool is_opening(char *file)
+{
+	int fd;
 
-	mlx_loop(mlx);
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		return (false);
+	close(fd);
+	return (true);
+}
+
+void	cria_pra_mim_gpt(char *file)
+{
+	if(!check_extension( file))
+		printf("Error\nInvalid extension\n");
+	if (!is_opening(file))
+		printf("Error\nCan't open this file\n");
+
+}
+
+int main(int argc, char *argv[])
+{
+	(void)argc;
+	cria_pra_mim_gpt( argv[1]);
 
 	return 0;
 }

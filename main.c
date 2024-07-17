@@ -12,40 +12,29 @@
 
 #include "so_long.h"
 
-bool	check_extension(char *file)
+void	init(t_game **game)
 {
-	char	*extension;
-
-	extension = strrchr(file, '.');
-	if(ft_strcmp(extension, ".ber") == 0)
-		return (true);
-	return (false);
+	(*game) = ft_calloc(sizeof(t_game), 1);
+	(*game)->lines = 0;
+	(*game)->map = NULL;
+	(*game)->total_len = 0;
+	(*game)->coins = 0;
+	(*game)->player = 0;
+	(*game)->exit = 0;
 }
-
-bool is_opening(char *file)
-{
-	int fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (false);
-	close(fd);
-	return (true);
-}
-
-void	cria_pra_mim_gpt(char *file)
-{
-	if(!check_extension( file))
-		printf("Error\nInvalid extension\n");
-	if (!is_opening(file))
-		printf("Error\nCan't open this file\n");
-
-}
-
 int main(int argc, char *argv[])
 {
-	(void)argc;
-	cria_pra_mim_gpt( argv[1]);
-
+	t_game 	*game;
+	if (argc == 2)
+	{
+		init(&game);
+		check_file(argv[1]);
+		count_lines(argv[1], game);
+		dps_eu_penso(argv[1], game);
+		count_letter(game);
+		check_invalid_entities(game);
+		check_map_close(game);
+		check_entities(game);
+	}
 	return 0;
 }

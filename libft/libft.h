@@ -107,6 +107,10 @@ char				*ft_extracted_line(char *ptr);
 char				*ft_remaining(char *ptr);
 char				*ft_strcpy(char *src, char *dest, int flag);
 char				*ft_strjoin_gnl(char *str1, char *str2);
+int					ft_check_character(char *str, int c);
+char				*ft_strcpy_nl(char *src, char *dest, int nl_stop);
+size_t	ft_strlen_gnl(const char *str);
+
 
 
 int					ft_charcmp(char *str, int c);

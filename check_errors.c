@@ -57,5 +57,7 @@ void	handler_errors(t_errors error)
 		ft_printf("Error\nWrong number of coin/exit/player\n");
 	if (error == I_ENTITIES)
 		ft_printf("Error\nWrong input characters");
+	if (error == PATH)
+		ft_printf("Error\nInvalid path\n");
 	exit (1);
 }

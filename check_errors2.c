@@ -38,6 +38,7 @@ void	check_map_close(t_game *game)
 			handler_errors(NO_CLOSED);
 		i++;
 	}
+
 	i = 0;
 	while (game->map[game->lines - 1][i] && game->map[game->lines - 1][i] != '\n')
 	{

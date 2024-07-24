@@ -16,7 +16,9 @@ void	init(t_game **game)
 {
 	(*game) = ft_calloc(sizeof(t_game), 1);
 	(*game)->lines = 0;
+	(*game)->all_lines = 0;
 	(*game)->map = NULL;
+	(*game)->full_map = NULL;
 	(*game)->total_len = 0;
 	(*game)->coins = 0;
 	(*game)->player = 0;
@@ -35,6 +37,8 @@ int main(int argc, char *argv[])
 		check_invalid_entities(game);
 		check_map_close(game);
 		check_entities(game);
+		nl_finder_inside_map(game);
+		copy_map(game);
 	}
 	return 0;
 }

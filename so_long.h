@@ -30,13 +30,16 @@ typedef enum errors
 		NO_CLOSED,
 		W_ENTITIES,
 		I_ENTITIES,
+		PATH,
 
 }			t_errors;
 
 typedef struct game
 {
+	char 	**full_map;
 	char	**map;
 	int 	lines;
+	int 	all_lines;
 	int 	total_len;
 	int 	player;
 	int		coins;
@@ -65,4 +68,12 @@ void		check_invalid_entities(t_game *game);
 
 void	dps_eu_penso(char *file, t_game *game);
 void	init(t_game **game);
+void	jaja_penso(t_game *game);
+void	nl_finder_inside_map(t_game *game);
+
+void	flood_fill(char **cp_map, int i, int j);
+void	copy_map(t_game *game);
+void	validate_path(char **cp_map, t_game *game);
+
+void find_player(t_game *game, int player[2]);
 #endif

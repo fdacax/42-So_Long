@@ -16,15 +16,15 @@ bool	check_extension(char *file)
 {
 	char	*extension;
 
-	extension = strrchr(file, '.');
-	if(ft_strcmp(extension, ".ber") == 0)
+	extension = ft_strrchr(file, '.');
+	if (ft_strcmp(extension, ".ber") == 0)
 		return (true);
 	return (false);
 }
 
 bool	check_file_exist(char *file)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -35,14 +35,15 @@ bool	check_file_exist(char *file)
 
 void	check_file(char *file)
 {
-	if(!check_extension( file))
-		handler_errors(EXTENSION);
+	if (!check_extension(file))
+		handler_errors(NULL, EXTENSION);
 	if (!check_file_exist(file))
-		handler_errors(NO_FILE);
+		handler_errors(NULL, NO_FILE);
 }
 
-void	handler_errors(t_errors error)
+void	handler_errors(t_game *game, t_errors error)
 {
+	free_maps(game);
 	if (error == EXTENSION)
 		ft_printf("Error\nInvalid extension\n");
 	if (error == NO_FILE)
@@ -51,8 +52,8 @@ void	handler_errors(t_errors error)
 		ft_printf("Error\nThe file is empty\n");
 	if (error == NO_RECTANGULAR)
 		ft_printf("Error\nThe map must be rectangular\n");
-	if (error == NO_CLOSED)
-		ft_printf("Error\nThe map must be closed by walls\n");
+	if (error == NO_ENCLOSED)
+		ft_printf("Error\nThe map must be enclosed by walls\n");
 	if (error == W_ENTITIES)
 		ft_printf("Error\nWrong number of coin/exit/player\n");
 	if (error == I_ENTITIES)

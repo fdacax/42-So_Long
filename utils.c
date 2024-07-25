@@ -48,7 +48,7 @@ int	ft_str_line(char *game)
 	return (total_len);
 }
 
-void	dps_eu_penso(char *file, t_game *game)
+void	init_full_map(char *file, t_game *game)
 {
 	char	*line;
 	int		fd;
@@ -60,8 +60,9 @@ void	dps_eu_penso(char *file, t_game *game)
 	fd = open(file, O_RDONLY);
 	line = get_next_line(fd);
 	if (line == NULL)
-		handler_errors(EMPTY);
+		handler_errors(game, EMPTY);
 	i = 0;
+	printf("\n");
 	while (line)
 	{
 		game->full_map[i] = ft_strdup(line);
@@ -71,17 +72,17 @@ void	dps_eu_penso(char *file, t_game *game)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	jaja_penso(game);
+	init_map(game);
 }
 
-void	jaja_penso(t_game *game)
+void	init_map(t_game *game)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	ft_printf("\n");
+	ft_printf("\n\n");
 	game->map = ft_calloc(sizeof(char *), game->lines + 1);
 	if (!game->map)
 		exit(1);
@@ -95,24 +96,24 @@ void	jaja_penso(t_game *game)
 		}
 		i++;
 	}
+	printf("\n");
+	nl_finder_inside_map(game);
 }
 
 void	nl_finder_inside_map(t_game *game)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = 0;
 	while (game->full_map[i])
 	{
-		while ((ft_strcmp(game->full_map[i], game->map[j]) == 0) && j < game->lines - 1)
+		while ((ft_strcmp(game->full_map[i], game->map[j]) == 0)
+			&& j < game->lines - 1)
 		{
 			if (game->full_map[i + 1][0] == '\n')
-			{
-				ft_printf("Hugo viado\n");
-				exit(1);
-			}
+				handler_errors(game, NO_RECTANGULAR);
 			j++;
 		}
 		i++;

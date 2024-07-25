@@ -27,7 +27,7 @@ typedef enum errors
 		NO_FILE,
 		EMPTY,
 		NO_RECTANGULAR,
-		NO_CLOSED,
+		NO_ENCLOSED,
 		W_ENTITIES,
 		I_ENTITIES,
 		PATH,
@@ -53,7 +53,7 @@ typedef struct game
 bool		check_extension(char *file);
 bool		check_file_exist(char *file);
 void		check_file(char *file);
-void		handler_errors(t_errors error);
+void	handler_errors(t_game *game, t_errors error);
 
 /* ************************************************************************** */
 /*                              check_error2                                  */
@@ -62,18 +62,21 @@ void		handler_errors(t_errors error);
 void		count_lines(char *file, t_game *game);
 void		count_letter(t_game *game);
 int			ft_str_line(char *game);
-void		check_map_close(t_game *game);
+void		check_map_enclosed(t_game *game);
 void		check_entities(t_game *game);
 void		check_invalid_entities(t_game *game);
 
-void	dps_eu_penso(char *file, t_game *game);
-void	init(t_game **game);
-void	jaja_penso(t_game *game);
-void	nl_finder_inside_map(t_game *game);
+void		init_full_map(char *file, t_game *game);
+void		init(t_game **game);
+void		init_map(t_game *game);
+void		nl_finder_inside_map(t_game *game);
 
-void	flood_fill(char **cp_map, int i, int j);
-void	copy_map(t_game *game);
-void	validate_path(char **cp_map, t_game *game);
+void		flood_fill(char **cp_map, int i, int j);
+void		copy_map(t_game *game);
+void		validate_path(char **cp_map, t_game *game);
 
-void find_player(t_game *game, int player[2]);
+void		find_player(t_game *game, int player[2]);
+void		free_maps(t_game *game);
+void		free_cp_map(char **cp_map);
+
 #endif

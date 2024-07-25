@@ -25,13 +25,13 @@ void	flood_fill(char **cp_map, int i, int j)
 
 void	validate_path(char **cp_map, t_game *game)
 {
-	int 	i;
-	int 	j;
-	int 	player[2];
+	int	i;
+	int	j;
+	int	player[2];
 
 	find_player(game, player);
 	flood_fill(cp_map, player[0], player[1]);
-	printf("\ncomi o davi tmb\n");
+	printf("\nMapa dps do flood\n");
 	i = 0;
 	while (i < game->lines)
 	{
@@ -40,7 +40,10 @@ void	validate_path(char **cp_map, t_game *game)
 		while (j < game->total_len - 1)
 		{
 			if (cp_map[i][j] != '1' && cp_map[i][j] != 'f')
-				handler_errors(PATH);
+			{
+				free_cp_map(cp_map);
+				handler_errors(game, PATH);
+			}
 			j++;
 		}
 		i++;
@@ -49,14 +52,14 @@ void	validate_path(char **cp_map, t_game *game)
 
 void	copy_map(t_game *game)
 {
-	char 	**cp_map;
+	char	**cp_map;
 	int		i;
 
 	i = 0;
 	cp_map = ft_calloc(sizeof(char *), game->lines + 1);
 	if (!cp_map)
 		exit (1);
-	ft_printf("\ncomi o gago\n\n");
+	ft_printf("\ncopia do mapa\n\n");
 	while (game->map[i])
 	{
 		cp_map[i] = ft_strdup(game->map[i]);
@@ -65,4 +68,3 @@ void	copy_map(t_game *game)
 	}
 	validate_path(cp_map, game);
 }
-

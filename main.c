@@ -24,21 +24,24 @@ void	init(t_game **game)
 	(*game)->player = 0;
 	(*game)->exit = 0;
 }
-int main(int argc, char *argv[])
+
+int	main(int argc, char *argv[])
 {
-	t_game 	*game;
+	t_game	*game;
+
 	if (argc == 2)
 	{
 		init(&game);
 		check_file(argv[1]);
 		count_lines(argv[1], game);
-		dps_eu_penso(argv[1], game);
+		init_full_map(argv[1], game);
+
 		count_letter(game);
+
 		check_invalid_entities(game);
-		check_map_close(game);
+		check_map_enclosed(game);
 		check_entities(game);
-		nl_finder_inside_map(game);
 		copy_map(game);
 	}
-	return 0;
+	return (0);
 }

@@ -43,20 +43,14 @@ void	free_maps(t_game *game)
 	if (game->full_map)
 	{
 		while (game->full_map[i])
-		{
-			free(game->full_map[i]);
-			i++;
-		}
+			free(game->full_map[i++]);
 		free(game->full_map);
 	}
 	i = 0;
 	if (game->map)
 	{
 		while (game->map[i])
-		{
-			free(game->map[i]);
-			i++;
-		}
+			free(game->map[i++]);
 		free(game->map);
 	}
 	free(game);
@@ -70,10 +64,7 @@ void	free_cp_map(char **cp_map)
 	if (cp_map)
 	{
 		while (cp_map[i])
-		{
-			free(cp_map[i]);
-			i++;
-		}
+			free(cp_map[i++]);
 		free(cp_map);
 	}
 }

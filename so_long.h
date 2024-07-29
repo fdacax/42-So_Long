@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
-#define SO_LONG_H
+# define SO_LONG_H
 
 # include "libft/libft.h"
 # include "mlx/mlx.h"
@@ -19,29 +19,28 @@
 # include <stdio.h>
 # include <X11/keysym.h>
 # include <X11/Xlib.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 typedef enum errors
 {
-		EXTENSION,
-		NO_FILE,
-		EMPTY,
-		NO_RECTANGULAR,
-		NO_ENCLOSED,
-		W_ENTITIES,
-		I_ENTITIES,
-		PATH,
-
+	EXTENSION,
+	NO_FILE,
+	EMPTY,
+	NO_RECTANGULAR,
+	NO_ENCLOSED,
+	W_ENTITIES,
+	I_ENTITIES,
+	PATH,
 }			t_errors;
 
 typedef struct game
 {
-	char 	**full_map;
+	char	**full_map;
 	char	**map;
-	int 	lines;
-	int 	all_lines;
-	int 	total_len;
-	int 	player;
+	int		lines;
+	int		all_lines;
+	int		total_len;
+	int		player;
 	int		coins;
 	int		exit;
 
@@ -53,7 +52,7 @@ typedef struct game
 bool		check_extension(char *file);
 bool		check_file_exist(char *file);
 void		check_file(char *file);
-void	handler_errors(t_game *game, t_errors error);
+void		handler_errors(t_game *game, t_errors error);
 
 /* ************************************************************************** */
 /*                              check_error2                                  */
@@ -78,5 +77,9 @@ void		validate_path(char **cp_map, t_game *game);
 void		find_player(t_game *game, int player[2]);
 void		free_maps(t_game *game);
 void		free_cp_map(char **cp_map);
+
+void		tche_tche(char *file, t_game *game);
+
+void	test_mlx(void);
 
 #endif

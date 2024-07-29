@@ -12,6 +12,17 @@
 
 #include "so_long.h"
 
+void	tche_tche(char *file, t_game *game)
+{
+	count_lines(file, game);
+	init_full_map(file, game);
+	count_letter(game);
+	check_invalid_entities(game);
+	check_map_enclosed(game);
+	check_entities(game);
+	copy_map(game);
+}
+
 bool	check_extension(char *file)
 {
 	char	*extension;
@@ -39,11 +50,13 @@ void	check_file(char *file)
 		handler_errors(NULL, EXTENSION);
 	if (!check_file_exist(file))
 		handler_errors(NULL, NO_FILE);
+
 }
 
 void	handler_errors(t_game *game, t_errors error)
 {
-	free_maps(game);
+	if (game)
+		free_maps(game);
 	if (error == EXTENSION)
 		ft_printf("Error\nInvalid extension\n");
 	if (error == NO_FILE)

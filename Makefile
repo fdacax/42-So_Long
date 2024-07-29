@@ -29,12 +29,12 @@ $(OBJS): $(SRCS)
 clean:
 	$(RM) $(OBJS)
 	$(MAKE) clean -C $(LIBFT_DIR)
-	@echo "GAME OVER!!!!"
+	@echo "objects was removed!"
 
 fclean: clean
 	$(RM) $(NAME)
 	$(MAKE) fclean -C $(LIBFT_DIR)
-	@echo "GAME OVER!!!! :("
+	@echo "GAME OVER!!!!"
 
 re: fclean
 	$(MAKE)

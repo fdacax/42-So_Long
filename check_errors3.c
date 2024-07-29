@@ -48,6 +48,7 @@ void	validate_path(char **cp_map, t_game *game)
 		}
 		i++;
 	}
+	free_cp_map(cp_map);
 }
 
 void	copy_map(t_game *game)

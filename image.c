@@ -80,6 +80,7 @@ void	load_sources(t_game *game, t_image *image, int i, int j)
 {
 	int	sum;
 
+	printf("image->x = %i, image->y = %i\n", image->x, image->y);
 	sum = i + j;
 	if (game->map[i][j] == '1')
 		mlx_put_image_to_window(image->w_init, image->window,
@@ -102,20 +103,18 @@ void	load_sources(t_game *game, t_image *image, int i, int j)
 	if (game->map[i][j] == 'E')
 		mlx_put_image_to_window(image->w_init, image->window,
 			image->sources[6], image->x, image->y);
+
+
 }
 
 void	droga(t_game *game)
 {
 	t_image	*image;
 
-
 	init_window(&image, game);
-
 	init_sources(image, game);
-
 	load_map(image, game);
-
-	mlx_key_hook(image->window, test_mlx_loop, &image);
+	mlx_key_hook(image->window, test_mlx_hook, game);
 	mlx_loop(image->w_init);
 }
 
@@ -126,3 +125,11 @@ void	p_error_mlx(char *str, t_game *game, t_image *image)
 	ft_putendl_fd(str, 1);
 	exit(1);
 }
+
+/*
+ * se for a tecla manda pra func q vai rec a prox posicao  da tecla
+ * verificar na se esse esta dentro do do chao, e se essa prox pos n é 1
+ * se n for 0 ou c ele avança, se for E, exit (0)
+ * deixa a pos anterior a 0
+ *
+ */

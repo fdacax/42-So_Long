@@ -112,7 +112,7 @@ void		tche_tche(char *file, t_game *game);
 /* ************************************************************************** */
 /*                                   mlx                                      */
 /* ************************************************************************** */
-int			test_mlx_loop(int key, t_game *game);
+int	test_mlx_hook(int key, t_game *game, t_image *image);
 
 void		droga(t_game *game);
 void		init_window(t_image **image, t_game *game);
@@ -120,5 +120,7 @@ void		p_error_mlx(char *str, t_game *game, t_image *image);
 void		init_sources(t_image *image, t_game *game);
 void		load_map(t_image *image, t_game *game);
 void		load_sources(t_game *game, t_image *image, int i, int j);
+
+void		refresh_map(t_game *game, t_image *image, int i,int j);
 
 #endif

@@ -15,14 +15,7 @@
 void	init(t_game **game)
 {
 	(*game) = ft_calloc(sizeof(t_game), 1);
-	(*game)->lines = 0;
-	(*game)->all_lines = 0;
-	(*game)->map = NULL;
-	(*game)->full_map = NULL;
-	(*game)->total_len = 0;
-	(*game)->coins = 0;
-	(*game)->player = 0;
-	(*game)->exit = 0;
+
 }
 
 int	main(int argc, char *argv[])
@@ -34,7 +27,10 @@ int	main(int argc, char *argv[])
 		check_file(argv[1]);
 		init(&game);
 		tche_tche(argv[1], game);
-		test_mlx();
+		droga(game);
+		//test_mlx(game);
+
+		free_maps(game);
 	}
 	return (0);
 }

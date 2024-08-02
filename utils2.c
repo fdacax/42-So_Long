@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-void	find_player(t_game *game, int player[2])
+void	find_player(t_game *game)
 {
 	int	i;
 	int	j;
@@ -25,8 +25,8 @@ void	find_player(t_game *game, int player[2])
 		{
 			if (game->map[i][j] == 'P')
 			{
-				player[0] = i;
-				player[1] = j;
+				game->player_pos[0] = i;
+				game->player_pos[1] = j;
 				return ;
 			}
 			j++;

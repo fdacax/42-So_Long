@@ -27,10 +27,9 @@ void	validate_path(char **cp_map, t_game *game)
 {
 	int	i;
 	int	j;
-	int	player[2];
 
-	find_player(game, player);
-	flood_fill(cp_map, player[0], player[1]);
+	find_player(game);
+	flood_fill(cp_map, game->player_pos[0], game->player_pos[1]);
 	printf("\nMapa dps do flood\n");
 	i = 0;
 	while (i < game->lines)

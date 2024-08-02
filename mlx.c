@@ -12,20 +12,33 @@
 
 #include "so_long.h"
 
-void test_mlx(void)
+int	test_mlx_loop(int key, t_game *game)
 {
-	void *mlx_ptr;
-	void *win_ptr;
+	if (key == W_KEY || key == U_ARROW)
+	{
+		ft_printf("tentou ir para cima\n");
+		game->player_pos[0] -= 1;
+		game->moves++;
+	}
+	else if (key == A_KEY || key == L_ARROW)
+	{
+		ft_printf("tentou ir para esquerda\n");
+		game->player_pos[1] -= 1;
+		game->moves++;
+	}
+	else if (key == S_KEY || key == D_ARROW)
+	{
+		ft_printf("tentou ir para baixo\n");
+		game->player_pos[0] += 1;
+		game->moves++;
+	}
+	else if (key == D_KEY || key == R_ARROW)
+	{
+		ft_printf("tentou ir para direita\n");
+		game->player_pos[1] += 1;
+		game->moves++;
+	}
 
-	mlx_ptr = mlx_init();
-	if (mlx_ptr == NULL)
-		return;
-	win_ptr = mlx_new_window(mlx_ptr, 800, 600, "Hello, World!");
-	if (win_ptr == NULL)
-		return;
-	mlx_string_put(mlx_ptr, win_ptr, 375, 290, 0xF0FFFF, "EH Tudo PUTA!");
-
-
-	mlx_loop(mlx_ptr);
+	ft_printf("Total moves: %i\n", game->moves);
+	return (0);
 }
-

@@ -12,12 +12,6 @@
 
 #include "so_long.h"
 
-void	init(t_game **game)
-{
-	(*game) = ft_calloc(sizeof(t_game), 1);
-
-}
-
 int	main(int argc, char *argv[])
 {
 	t_game	*game;
@@ -25,12 +19,9 @@ int	main(int argc, char *argv[])
 	if (argc == 2)
 	{
 		check_file(argv[1]);
-		init(&game);
-		tche_tche(argv[1], game);
-		droga(game);
-		//test_mlx(game);
-
-		free_maps(game);
+		game = ft_calloc(sizeof(t_game), 1);
+		map_checker(argv[1], game);
+		init_image(game);
 	}
 	return (0);
 }

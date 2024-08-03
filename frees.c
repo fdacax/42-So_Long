@@ -1,56 +1,78 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_errors.c                                     :+:      :+:    :+:   */
+/*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fdacax-m <fdacax-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 15:56:36 by fdacax-m          #+#    #+#             */
-/*   Updated: 2024/06/25 15:56:36 by fdacax-m         ###   ########.fr       */
+/*   Created: 2024/08/02 23:04:03 by fdacax-m          #+#    #+#             */
+/*   Updated: 2024/08/02 23:04:03 by fdacax-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	tche_tche(char *file, t_game *game)
+void	free_cp_map(char **cp_map)
 {
-	count_lines(file, game);
-	init_full_map(file, game);
-	count_letter(game);
-	check_invalid_entities(game);
-	check_map_enclosed(game);
-	check_entities(game);
-	copy_map(game);
+	int	i;
+
+	i = 0;
+	if (cp_map)
+	{
+		while (cp_map[i])
+			free(cp_map[i++]);
+		free(cp_map);
+	}
 }
 
-bool	check_extension(char *file)
+void	free_maps(t_game *game)
 {
-	char	*extension;
+	int	i;
 
-	extension = ft_strrchr(file, '.');
-	if (ft_strcmp(extension, ".ber") == 0)
-		return (true);
-	return (false);
+	i = 0;
+	if (game->full_map)
+	{
+		while (game->full_map[i])
+			free(game->full_map[i++]);
+		free(game->full_map);
+	}
+	i = 0;
+	if (game->map)
+	{
+		while (game->map[i])
+			free(game->map[i++]);
+		free(game->map);
+	}
+	free(game);
 }
 
-bool	check_file_exist(char *file)
+void	free_images(t_image *image)
 {
-	int	fd;
+	int	i;
 
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (false);
-	close(fd);
-	return (true);
+	i = 0;
+	while (i < 7)
+	{
+		if (image->sources[i])
+			mlx_destroy_image(image->w_init, image->sources[i]);
+		i++;
+	}
+	if (image->window)
+	{
+		mlx_destroy_window(image->w_init, image->window);
+		mlx_destroy_display(image->w_init);
+	}
+	if (image->w_init)
+		free(image->w_init);
+	free(image);
 }
 
-void	check_file(char *file)
+void	p_error_mlx(char *str, t_game *game, t_image *image)
 {
-	if (!check_extension(file))
-		handler_errors(NULL, EXTENSION);
-	if (!check_file_exist(file))
-		handler_errors(NULL, NO_FILE);
-
+	free_maps(game);
+	free_images(image);
+	ft_putendl_fd(str, 1);
+	exit(1);
 }
 
 void	handler_errors(t_game *game, t_errors error)

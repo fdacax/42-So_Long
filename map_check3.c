@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_errors3.c                                    :+:      :+:    :+:   */
+/*   map_check3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fdacax-m <fdacax-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/24 18:15:55 by fdacax-m          #+#    #+#             */
-/*   Updated: 2024/07/24 18:31:14 by fdacax-m         ###   ########.fr       */
+/*   Created: 2024/08/02 23:29:18 by fdacax-m          #+#    #+#             */
+/*   Updated: 2024/08/02 23:29:41 by fdacax-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,10 @@ void	validate_path(char **cp_map, t_game *game)
 
 	find_player(game);
 	flood_fill(cp_map, game->player_pos[0], game->player_pos[1]);
-	printf("\nMapa dps do flood\n");
 	i = 0;
 	while (i < game->lines)
 	{
 		j = 0;
-		printf("%s", cp_map[i]);
 		while (j < game->total_len - 1)
 		{
 			if (cp_map[i][j] != '1' && cp_map[i][j] != 'f')
@@ -59,11 +57,9 @@ void	copy_map(t_game *game)
 	cp_map = ft_calloc(sizeof(char *), game->lines + 1);
 	if (!cp_map)
 		exit (1);
-	ft_printf("\ncopia do mapa\n\n");
 	while (game->map[i])
 	{
 		cp_map[i] = ft_strdup(game->map[i]);
-		ft_printf("%s", cp_map[i]);
 		i++;
 	}
 	validate_path(cp_map, game);

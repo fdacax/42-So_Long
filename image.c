@@ -12,46 +12,24 @@
 
 #include "so_long.h"
 
-void	init_window(t_image **image, t_game *game)
+void	refresh_map(t_game *game, t_image *image, int i, int j)
 {
-	(*image) = ft_calloc(sizeof(t_image), 1);
-	(*image)->w_width = game->total_len * 50;
-	(*image)->w_height = game->lines * 50;
-	(*image)->w_init = mlx_init();
-	if ((*image)->w_init == NULL)
-		p_error_mlx("Error\nFail init mlx", game, *image);
-	(*image)->window = mlx_new_window((*image)->w_init, (*image)->w_width,
-			(*image)->w_height, "So_Long");
-	if ((*image)->window == NULL)
-		p_error_mlx("Error\nFail creat window", game, *image);
-}
-
-void	init_sources(t_image *image, t_game *game)
-{
-	image->sources[0] = mlx_xpm_file_to_image(image->w_init,
-			"sources/1 wall.xpm", &image->s_width, &image->s_height);
-	if (image->sources[0] == NULL)
-		p_error_mlx("Error\nFailed to load wall", game, image);
-	image->sources[1] = mlx_xpm_file_to_image(image->w_init,
-			"sources/1 floor.xpm", &image->s_width, &image->s_height);
-	if (image->sources[1] == NULL)
-		p_error_mlx("Error\nFailed to load floor", game, image);
-	image->sources[2] = mlx_xpm_file_to_image(image->w_init,
-			"sources/1 player.xpm", &image->s_width, &image->s_height);
-	image->sources[3] = mlx_xpm_file_to_image(image->w_init,
-			"sources/2 player.xpm", &image->s_width, &image->s_height);
-	if (image->sources[3] == NULL || image->sources[2] == NULL)
-		p_error_mlx("Error\nFailed to load player", game, image);
-	image->sources[4] = mlx_xpm_file_to_image(image->w_init,
-			"sources/1 coin.xpm", &image->s_width, &image->s_height);
-	image->sources[5] = mlx_xpm_file_to_image(image->w_init,
-			"sources/2 coin.xpm", &image->s_width, &image->s_height);
-	if (image->sources[5] == NULL || image->sources[4] == NULL)
-		p_error_mlx("Error\nFailed to load player.xpm", game, image);
-	image->sources[6] = mlx_xpm_file_to_image(image->w_init,
-			"sources/1 exit.xpm", &image->s_width, &image->s_height);
-	if (image->sources[6] == NULL)
-		p_error_mlx("Error\nFailed to load exit.xpm", game, image);
+	if (game->map[i][j] != '1')
+	{
+		game->moves++;
+		ft_printf("Total moves: %i\n", game->moves);
+		if (game->map[i][j] == 'C')
+			game->coins--;
+		game->map[i][j] = 'P';
+		game->map[game->player_pos[0]][game->player_pos[1]] = '0';
+		game->player_pos[0] = i;
+		game->player_pos[1] = j;
+		if (game->coins == 0)
+			game->map[game->exit_pos[0]][game->exit_pos[1]] = 'E';
+		load_map(image, game);
+	}
+	if (game->map[i][j] == 'E' && game->coins == 0)
+		p_error_mlx("Congratulations, you Win! q:)", game, image);
 }
 
 void	load_map(t_image *image, t_game *game)
@@ -68,68 +46,24 @@ void	load_map(t_image *image, t_game *game)
 		while (game->map[i][j])
 		{
 			load_sources(game, image, i, j);
-			image->x += 50;
+			image->x++;
 			j++;
 		}
-		image->y += 50;
+		image->y++;
 		i++;
 	}
 }
 
-void	load_sources(t_game *game, t_image *image, int i, int j)
-{
-	int	sum;
-
-	printf("image->x = %i, image->y = %i\n", image->x, image->y);
-	sum = i + j;
-	if (game->map[i][j] == '1')
-		mlx_put_image_to_window(image->w_init, image->window,
-			image->sources[0], image->x, image->y);
-	if (game->map[i][j] == '0')
-		mlx_put_image_to_window(image->w_init, image->window,
-			image->sources[1], image->x, image->y);
-	if (game->map[i][j] == 'P' && game->coins > 0)
-		mlx_put_image_to_window(image->w_init, image->window,
-			image->sources[2], image->x, image->y);
-	if (game->map[i][j] == 'P' && game->coins == 0)
-		mlx_put_image_to_window(image->w_init, image->window,
-			image->sources[3], image->x, image->y);
-	if (game->map[i][j] == 'C' && (sum % 2 == 0))
-		mlx_put_image_to_window(image->w_init, image->window,
-			image->sources[4], image->x, image->y);
-	if (game->map[i][j] == 'C' && (sum % 2 != 0))
-		mlx_put_image_to_window(image->w_init, image->window,
-			image->sources[5], image->x, image->y);
-	if (game->map[i][j] == 'E')
-		mlx_put_image_to_window(image->w_init, image->window,
-			image->sources[6], image->x, image->y);
-
-
-}
-
-void	droga(t_game *game)
+void	init_image(t_game *game)
 {
 	t_image	*image;
 
 	init_window(&image, game);
 	init_sources(image, game);
+	game->image = image;
 	load_map(image, game);
-	mlx_key_hook(image->window, test_mlx_hook, game);
+	find_exit(game);
+	mlx_hook(image->window, 2, 1L << 0, handler_mlx_hook, game);
+	mlx_hook(image->window, 17, 1L << 17, close_win_on_x, game);
 	mlx_loop(image->w_init);
 }
-
-void	p_error_mlx(char *str, t_game *game, t_image *image)
-{
-	free_maps(game);
-	free(image);
-	ft_putendl_fd(str, 1);
-	exit(1);
-}
-
-/*
- * se for a tecla manda pra func q vai rec a prox posicao  da tecla
- * verificar na se esse esta dentro do do chao, e se essa prox pos n é 1
- * se n for 0 ou c ele avança, se for E, exit (0)
- * deixa a pos anterior a 0
- *
- */

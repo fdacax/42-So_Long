@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fdacax-m <fdacax-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/15 15:38:23 by fdacax-m          #+#    #+#             */
-/*   Updated: 2024/07/15 15:38:23 by fdacax-m         ###   ########.fr       */
+/*   Created: 2024/08/02 23:30:06 by fdacax-m          #+#    #+#             */
+/*   Updated: 2024/08/02 23:30:35 by fdacax-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	count_lines(char *file, t_game *game)
 	close(fd);
 }
 
-int	ft_str_line(char *game)
+int	ft_strlen_nl(char *game)
 {
 	int	i;
 	int	total_len;
@@ -62,11 +62,9 @@ void	init_full_map(char *file, t_game *game)
 	if (line == NULL)
 		handler_errors(game, EMPTY);
 	i = 0;
-	printf("\n");
 	while (line)
 	{
 		game->full_map[i] = ft_strdup(line);
-		ft_printf("%s", game->full_map[i]);
 		i++;
 		free(line);
 		line = get_next_line(fd);
@@ -82,7 +80,6 @@ void	init_map(t_game *game)
 
 	i = 0;
 	j = 0;
-	ft_printf("\n\n");
 	game->map = ft_calloc(sizeof(char *), game->lines + 1);
 	if (!game->map)
 		exit(1);
@@ -91,12 +88,10 @@ void	init_map(t_game *game)
 		if (game->full_map[i][0] != '\n')
 		{
 			game->map[j] = ft_strdup(game->full_map[i]);
-			ft_printf("%s", game->map[j]);
 			j++;
 		}
 		i++;
 	}
-	printf("\n");
 	nl_finder_inside_map(game);
 }
 

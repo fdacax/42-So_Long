@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_errors2.c                                    :+:      :+:    :+:   */
+/*   map_check2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fdacax-m <fdacax-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 16:03:35 by fdacax-m          #+#    #+#             */
-/*   Updated: 2024/06/25 16:03:35 by fdacax-m         ###   ########.fr       */
+/*   Created: 2024/08/02 23:28:45 by fdacax-m          #+#    #+#             */
+/*   Updated: 2024/08/02 23:28:52 by fdacax-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	count_letter(t_game *game)
 {
 	int	i;
 
-	game->total_len = ft_str_line(game->map[0]);
+	game->total_len = ft_strlen_nl(game->map[0]);
 	i = 1;
 	while (game->map[i])
 	{
-		if (ft_str_line(game->map[i]) == game->total_len)
+		if (ft_strlen_nl(game->map[i]) == game->total_len)
 			i++;
 		else
 			handler_errors(game, NO_RECTANGULAR);

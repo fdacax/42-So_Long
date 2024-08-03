@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   map_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fdacax-m <fdacax-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/24 19:06:36 by fdacax-m          #+#    #+#             */
-/*   Updated: 2024/07/24 19:06:36 by fdacax-m         ###   ########.fr       */
+/*   Created: 2024/08/02 23:30:20 by fdacax-m          #+#    #+#             */
+/*   Updated: 2024/08/02 23:30:43 by fdacax-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,25 @@ void	find_player(t_game *game)
 	}
 }
 
-void	free_maps(t_game *game)
+void	find_exit(t_game *game)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	if (game->full_map)
+	while (i < game->lines)
 	{
-		while (game->full_map[i])
-			free(game->full_map[i++]);
-		free(game->full_map);
-	}
-	i = 0;
-	if (game->map)
-	{
-		while (game->map[i])
-			free(game->map[i++]);
-		free(game->map);
-	}
-	free(game);
-}
-
-void	free_cp_map(char **cp_map)
-{
-	int	i;
-
-	i = 0;
-	if (cp_map)
-	{
-		while (cp_map[i])
-			free(cp_map[i++]);
-		free(cp_map);
+		j = 0;
+		while (j < game->total_len - 1)
+		{
+			if (game->map[i][j] == 'E')
+			{
+				game->exit_pos[0] = i;
+				game->exit_pos[1] = j;
+				return ;
+			}
+			j++;
+		}
+		i++;
 	}
 }

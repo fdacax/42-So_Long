@@ -36,5 +36,8 @@ fclean: clean
 	$(MAKE) fclean -C $(LIBFT_DIR)
 	@echo "GAME OVER!!!!"
 
-re: fclean
-	$(MAKE)
+re: fclean all
+
+leak: re
+	valgrind --leak-check=full --show-leak-kinds=all \
+        ./$(NAME) maps/invalid_map/2players.ber

@@ -97,7 +97,9 @@ int	handler_mlx_hook(int key, t_game *game)
 		j += 1;
 	if (key == ESC)
 		p_error_mlx("ESC was press\nGame Over! q:(", game, game->image);
-	refresh_map(game, game->image, i, j);
+	if ((key == W_KEY || key == U_ARROW) || (key == A_KEY || key == L_ARROW)
+		|| (key == S_KEY || key == D_ARROW) || (key == D_KEY || key == R_ARROW))
+		refresh_map(game, game->image, i, j);
 	return (0);
 }
 
